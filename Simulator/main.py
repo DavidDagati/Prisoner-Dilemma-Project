@@ -31,7 +31,7 @@ class Simulator:
         self.numOfRounds = numOfRounds
         self.scoreA = 0
         self.scoreB = 0
-    
+
     def getCurrentScoreA(self) -> int:
         return self.scoreA
     
@@ -40,7 +40,7 @@ class Simulator:
 
 
     # Set memorySize = -1 for entire round
-    def simulate(self, strategyA, strategyB, logFileName="Results/log.txt"):
+    def simulate(self, strategyA, strategyB, logFileName= "Results/log.txt"):
         moveA = 0
         moveB = 0
 
