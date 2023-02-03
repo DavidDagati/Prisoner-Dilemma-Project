@@ -6,7 +6,8 @@ def pavlov(logFile, playerID):
     # Read existing log
     with open(logFile, 'r') as log:
         try:
-            last_line = log.readlines()[-1]
+            lines = log.read().splitlines()
+            last_line = lines[-1]
         except IndexError:
             last_line = None
 
