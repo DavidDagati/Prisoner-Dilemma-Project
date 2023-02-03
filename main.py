@@ -25,7 +25,7 @@ To Run:
 
 '''
 from Strategies.userInput import userInput
-# from Strategies.ticForTat import ticForTat
+from Strategies.TicForTac import titForTat_A, titForTat_B
 from Strategies.pavlov import pavlov
 # from Strategies.adaptivePavlov import adaptivePavlov
 # from Strategies.suspiciousTitForTat import suspiciousTitForTat
@@ -48,7 +48,7 @@ class Simulator:
 
         self.menu = {
             0: {"Name": "UserInput", "FunctionA": "userInput(logFileName, 'A')", "FunctionB": "userInput(logFileName, 'B')", "Notes": "No Strategy"},
-            1: {"Name": "Tic for Tat", "FunctionA": "ticForTat(logFileName, 'A')", "FunctionB": "ticForTat(logFileName, 'B')", "Notes": ""}, 
+            1: {"Name": "Tic for Tat", "FunctionA": "titForTat_A(logFileName)", "FunctionB": "titForTat_B(logFileName)", "Notes": ""}, 
             2: {"Name": "Pavlov", "FunctionA": "pavlov(logFileName, 'A')", "FunctionB": "pavlov(logFileName, 'B')", "Notes": ""}, 
             3: {"Name": "Adaptive Pavlov", "FunctionA": "adaptivePavlov(logFileName, 'A')", "FunctionB": "adaptivePavlov(logFileName, 'B')", "Notes": ""}, 
             4: {"Name": "Suspicious Tit for Tat", "FunctionA": "suspiciousTitForTat(logFileName, 'A')", "FunctionB": "suspiciousTitForTat(logFileName, 'B')", "Notes": ""}, 
