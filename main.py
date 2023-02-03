@@ -46,17 +46,7 @@ class Simulator:
         self.scoreA = 0
         self.scoreB = 0
 
-    def getCurrentScoreA(self) -> int:
-        return self.scoreA
-    
-    def getCurrentScoreB(self) -> int:
-        return self.scoreB
-
-
-    # Set memorySize = -1 for entire round
-    def simulate(self, strategyA, strategyB, logFileName= "Results/log.txt"):
-
-        menu = {
+        self.menu = {
             0: {"Name": "UserInput", "FunctionA": "userInput(logFileName, 'A')", "FunctionB": "userInput(logFileName, 'B')", "Notes": "No Strategy"},
             1: {"Name": "Tic for Tat", "FunctionA": "ticForTat(logFileName, 'A')", "FunctionB": "ticForTat(logFileName, 'B')", "Notes": ""}, 
             2: {"Name": "Pavlov", "FunctionA": "pavlov(logFileName, 'A')", "FunctionB": "pavlov(logFileName, 'B')", "Notes": ""}, 
@@ -72,7 +62,17 @@ class Simulator:
             12: {"Name": "Genetic Algorithm", "FunctionA": "geneticAlgorithm(logFileName)", "Notes": ""},
             # 13: {"Name": "", "FunctionA": "", "Notes": ""},
         }
-        
+
+    def getCurrentScoreA(self) -> int:
+        return self.scoreA
+    
+    def getCurrentScoreB(self) -> int:
+        return self.scoreB
+
+
+    # Set memorySize = -1 for entire round
+    def simulate(self, strategyA, strategyB, logFileName= "Results/log.txt"):
+
         moveA = 0
         moveB = 0
 
@@ -88,11 +88,11 @@ class Simulator:
         for i in range(self.numOfRounds):
             # Find strategy for A:
 
-            moveA = eval(menu[strategyA]["FunctionA"])
+            moveA = eval(self.menu[strategyA]["FunctionA"])
             
             # Find Strategy for B:
 
-            moveB = eval(menu[strategyB]["FunctionB"])
+            moveB = eval(self.menu[strategyB]["FunctionB"])
             
             # Update log.txt:
             file = open(logFileName, "a")
