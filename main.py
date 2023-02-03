@@ -80,23 +80,30 @@ class Simulator:
         self.scoreA = 0
         self.scoreB = 0
 
-        with open(logFileName, "w") as file:
+        # with open(logFileName, "w") as file:
+        file = open(logFileName, "w")
+        # Clear the File
+        file.close()
             # Loop through all the rounds
-            for i in range(self.numOfRounds):
-                # Find strategy for A:
+        for i in range(self.numOfRounds):
+            # Find strategy for A:
 
-                moveA = eval(menu[strategyA]["FunctionA"])
-                
-                # Find Strategy for B:
+            moveA = eval(menu[strategyA]["FunctionA"])
+            
+            # Find Strategy for B:
 
-                moveB = eval(menu[strategyB]["FunctionB"])
-                
-                # Update Total Score for Player A and B
-                scores = self.playRound(moveA, moveB)
-                self.scoreA += scores[0]
-                self.scoreB += scores[1]
-                # Update log.txt:
-                file.write(f"{moveA} {moveB}\n")
+            moveB = eval(menu[strategyB]["FunctionB"])
+            
+            # Update log.txt:
+            file = open(logFileName, "a")
+            file.write(f"{moveA} {moveB}\n")
+            file.close()
+
+            # Update Total Score for Player A and B
+            scores = self.playRound(moveA, moveB)
+            self.scoreA += scores[0]
+            self.scoreB += scores[1]
+
 
                 
     
