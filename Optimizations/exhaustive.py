@@ -1,8 +1,9 @@
 # The Exhaustive search method (Brute Force)
 
-from datetime import datetime
+import sys
+import os
 
-from main import Simulator
+from datetime import datetime
 
 def exhaustive():
 
@@ -30,3 +31,18 @@ def exhaustive():
         file.write(f"Cycle {cycle_count} ({start} to {end}) with {num_of_rounds} Rounds: {sim.menu[i]['Name']}: {sim.scoreA} {sim.menu[j]['Name']}: {sim.scoreB} Winner: {max(sim.scoreA, sim.scoreB)}\n")
         file.close()
         
+
+if __name__ == "__main__":
+    # Get current Directory
+    current = os.path.dirname(os.path.realpath(__file__))
+    
+    # Get Parent Directory
+    parent = os.path.dirname(current)
+    
+    # Adding parent directory to sys.path.
+    sys.path.append(parent)
+    
+    # Now able to import Simulator
+    from main import Simulator
+
+    exhaustive()
