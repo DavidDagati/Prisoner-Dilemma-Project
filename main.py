@@ -110,15 +110,18 @@ class Simulator:
                 "Notes": ""},
 
             12: {"Name": "Genetic Algorithm V1 (No Memory)", 
-                "FunctionA": "useGeneticV1(i, logFileName)", 
+                "FunctionA": "useGeneticV1('A', i, logFileName)", 
+                "FunctionB": "useGeneticV1('B', i, logFileName)", 
                 "Notes": ""},
             
             13: {"Name": "Genetic Algorithm V2 (1 Play Memory)", 
-                "FunctionA": "useGeneticV2(i, logFileName)", 
+                "FunctionA": "useGeneticV2('A', i, logFileName)", 
+                "FunctionB": "useGeneticV2('B', i, logFileName)", 
                 "Notes": ""},
             
             14: {"Name": "Genetic Algorithm V3 (3 Plays Memory)", 
-                "FunctionA": "useGeneticV3(i, logFileName)", 
+                "FunctionA": "useGeneticV3('A', i, logFileName)", 
+                "FunctionB": "useGeneticV3('B', i, logFileName)", 
                 "Notes": ""},
          
         }
@@ -205,4 +208,7 @@ if __name__ == '__main__':
     b = int(input("Enter a ID of Strategy B: "))
     sim = Simulator(numOfRounds= num_of_rounds)
     sim.simulate(strategyA= a, strategyB= b)
+
+    print(f"Score is {sim.getCurrentScoreA()} vs {sim.getCurrentScoreB()}")
+
 
