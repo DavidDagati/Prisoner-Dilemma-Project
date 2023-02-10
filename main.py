@@ -27,10 +27,10 @@ To Run:
 from Strategies.userInput import userInput
 from Strategies.TicForTac import titForTat_A, titForTat_B
 from Strategies.pavlov import pavlov
-# from Strategies.adaptivePavlov import adaptivePavlov
-# from Strategies.suspiciousTitForTat import suspiciousTitForTat
+from Strategies.adaptivePavlov import adaptivePavlov
+from Strategies.suspiciousTitForTat import suspiciousTitForTat
 from Strategies.titForTwoTats import titForTwoTats
-# from Strategies.random import random
+from Strategies.Random import Random
 # from Strategies.allCooperate import allCooperate
 from Strategies.allDefects import allDefects
 # from Strategies.everyOther import everyOther
