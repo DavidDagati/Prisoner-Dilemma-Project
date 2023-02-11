@@ -6,7 +6,7 @@ def tit_for_tat(last_line, opponentSpace):
     return 1
 
 def allDefect():    
-    return 0
+    return 1
 
 
 def adaptivePavlov(logFile, playerID):
@@ -50,14 +50,10 @@ def adaptivePavlov(logFile, playerID):
             4: "pavlov",
         }
 
-        # For Now
         #The best strategy to go 0,3,4 is tit for tat
         if (lines[0][opponentSpace] == "1" and lines[1][opponentSpace] == "1" and lines[2][opponentSpace] == "1" and lines[3][opponentSpace] == "1" and lines[4][opponentSpace] == "1" and lines[5][opponentSpace] == "1"):
             return tit_for_tat(last_line, playerID)
-        #The best strategy to go 1 is always defect
-        elif (lines[0][opponentSpace] == '0' and lines[1][opponentSpace] == '0' and lines[2][opponentSpace] == '0' and lines[3][opponentSpace] == '0' and lines[4][opponentSpace] == '0' and lines[5][opponentSpace] == '0'):
-            return allDefect()
-        #The best strategy to go 2 is always defect
+        #The best strategy to go 1, 2 is always defect
         else:
             return allDefect()
         
