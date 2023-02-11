@@ -30,14 +30,17 @@ from Strategies.pavlov import pavlov
 from Strategies.adaptivePavlov import adaptivePavlov
 from Strategies.suspiciousTitForTat import suspiciousTitForTat
 from Strategies.titForTwoTats import titForTwoTats
-from Strategies.Random import Random
+# from Strategies.Random import Random
 # from Strategies.allCooperate import allCooperate
 from Strategies.allDefects import allDefects
 # from Strategies.everyOther import everyOther
 # from Strategies.grim import grim
 # from Strategies.everyOther import everyOther
 # from Optimizations.hillClimbing import hillClimbing
-# from Optimizations.geneticAlgorithm import geneticAlgorithm
+from Optimizations.useGenetic import useGeneticV1
+from Optimizations.useGenetic import useGeneticV2
+from Optimizations.useGenetic import useGeneticV3
+
 
 
 class Simulator:
@@ -47,20 +50,80 @@ class Simulator:
         self.scoreB = 0
 
         self.menu = {
-            0: {"Name": "UserInput", "FunctionA": "userInput(logFileName, 'A')", "FunctionB": "userInput(logFileName, 'B')", "Notes": "No Strategy"},
-            1: {"Name": "Tic for Tat", "FunctionA": "titForTat_A(logFileName)", "FunctionB": "titForTat_B(logFileName)", "Notes": ""}, 
-            2: {"Name": "Pavlov", "FunctionA": "pavlov(logFileName, 'A')", "FunctionB": "pavlov(logFileName, 'B')", "Notes": ""}, 
-            3: {"Name": "Adaptive Pavlov", "FunctionA": "adaptivePavlov(logFileName, 'A')", "FunctionB": "adaptivePavlov(logFileName, 'B')", "Notes": ""}, 
-            4: {"Name": "Suspicious Tit for Tat", "FunctionA": "suspiciousTitForTat(logFileName, 'A')", "FunctionB": "suspiciousTitForTat(logFileName, 'B')", "Notes": ""}, 
-            5: {"Name": "Tit for Two Tats", "FunctionA": "titForTwoTats(logFileName, 'A')", "FunctionB": "titForTwoTats(logFileName, 'B')", "Notes": ""},
-            6: {"Name": "Random", "FunctionA": "random(logFileName, 'A')", "FunctionB": "random(logFileName, 'B')", "Notes": ""}, 
-            7: {"Name": "All Cooperate", "FunctionA": "allCooperate(logFileName, 'A')", "FunctionB": "allCooperate(logFileName, 'B')", "Notes": ""}, 
-            8: {"Name": "All Defect ", "FunctionA": "allDefects(logFileName, 'A')", "FunctionB": "allDefects(logFileName, 'B')", "Notes": ""},
-            9: {"Name": "Every Other ", "FunctionA": "everyOther(logFileName, 'A')", "FunctionB": "everyOther(logFileName, 'B')", "Notes": ""},
-            10: {"Name": "GRIM", "FunctionA": "grim(logFileName, 'A')", "FunctionB": "grim(logFileName, 'B')", "Notes": ""}, 
-            11: {"Name": "Hill Climbing", "FunctionA": "hillClimbing(logFileName)", "Notes": ""},
-            12: {"Name": "Genetic Algorithm", "FunctionA": "geneticAlgorithm(logFileName)", "Notes": ""},
-            # 13: {"Name": "", "FunctionA": "", "Notes": ""},
+            0: {"Name": "UserInput", 
+                "FunctionA": "userInput(logFileName, 'A')", 
+                "FunctionB": "userInput(logFileName, 'B')", 
+                "Notes": "No Strategy"},
+
+            1: {"Name": "Tic for Tat",
+                "FunctionA": "titForTat_A(logFileName)", 
+                "FunctionB": "titForTat_B(logFileName)", 
+                "Notes": ""}, 
+
+            2: {"Name": "Pavlov", 
+                "FunctionA": "pavlov(logFileName, 'A')", 
+                "FunctionB": "pavlov(logFileName, 'B')", 
+                "Notes": ""}, 
+
+            3: {"Name": "Adaptive Pavlov", 
+                "FunctionA": "adaptivePavlov(logFileName, 'A')", 
+                "FunctionB": "adaptivePavlov(logFileName, 'B')", 
+                "Notes": ""}, 
+
+            4: {"Name": "Suspicious Tit for Tat", 
+                "FunctionA": "suspiciousTitForTat(logFileName, 'A')", 
+                "FunctionB": "suspiciousTitForTat(logFileName, 'B')", 
+                "Notes": ""}, 
+
+            5: {"Name": "Tit for Two Tats", 
+                "FunctionA": "titForTwoTats(logFileName, 'A')", 
+                "FunctionB": "titForTwoTats(logFileName, 'B')", 
+                "Notes": ""},
+
+            6: {"Name": "Random", 
+                "FunctionA": "random(logFileName, 'A')", 
+                "FunctionB": "random(logFileName, 'B')", 
+                "Notes": ""}, 
+
+            7: {"Name": "All Cooperate", 
+                "FunctionA": "allCooperate()", 
+                "FunctionB": "allCooperate()", 
+                "Notes": ""}, 
+
+            8: {"Name": "All Defect ", 
+                "FunctionA": "allDefects(logFileName, 'A')", 
+                "FunctionB": "allDefects(logFileName, 'B')", 
+                "Notes": ""},
+
+            9: {"Name": "Every Other ", 
+                "FunctionA": "everyOther(i)", 
+                "FunctionB": "everyOther(i)", 
+                "Notes": ""},
+
+            10: {"Name": "GRIM", 
+                "FunctionA": "grim(logFileName, 'A')", 
+                "FunctionB": "grim(logFileName, 'B')", 
+                "Notes": ""}, 
+
+            11: {"Name": "Hill Climbing", 
+                "FunctionA": "hillClimbing(logFileName)", 
+                "Notes": ""},
+
+            12: {"Name": "Genetic Algorithm V1 (No Memory)", 
+                "FunctionA": "useGeneticV1('A', i, logFileName)", 
+                "FunctionB": "useGeneticV1('B', i, logFileName)", 
+                "Notes": ""},
+            
+            13: {"Name": "Genetic Algorithm V2 (1 Play Memory)", 
+                "FunctionA": "useGeneticV2('A', i, logFileName)", 
+                "FunctionB": "useGeneticV2('B', i, logFileName)", 
+                "Notes": ""},
+            
+            14: {"Name": "Genetic Algorithm V3 (3 Plays Memory)", 
+                "FunctionA": "useGeneticV3('A', i, logFileName)", 
+                "FunctionB": "useGeneticV3('B', i, logFileName)", 
+                "Notes": ""},
+         
         }
 
     def getCurrentScoreA(self) -> int:
@@ -145,4 +208,7 @@ if __name__ == '__main__':
     b = int(input("Enter a ID of Strategy B: "))
     sim = Simulator(numOfRounds= num_of_rounds)
     sim.simulate(strategyA= a, strategyB= b)
+
+    print(f"Score is {sim.getCurrentScoreA()} vs {sim.getCurrentScoreB()}")
+
 
