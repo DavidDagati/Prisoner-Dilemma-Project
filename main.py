@@ -30,12 +30,12 @@ from Strategies.pavlov import pavlov
 from Strategies.adaptivePavlov import adaptivePavlov
 from Strategies.suspiciousTitForTat import suspiciousTitForTat
 from Strategies.titForTwoTats import titForTwoTats
-# from Strategies.Random import Random
-# from Strategies.allCooperate import allCooperate
+from Strategies.random import Random
+from Strategies.allCooperate import allCooperate
 from Strategies.allDefects import allDefects
-# from Strategies.everyOther import everyOther
+from Strategies.everyOther import everyOther
 # from Strategies.grim import grim
-# from Strategies.everyOther import everyOther
+from Strategies.everyOther import everyOther
 # from Optimizations.hillClimbing import hillClimbing
 from Optimizations.useGenetic import useGeneticV1
 from Optimizations.useGenetic import useGeneticV2
@@ -90,12 +90,12 @@ class Simulator:
                 "FunctionB": "allCooperate()", 
                 "Notes": ""}, 
 
-            8: {"Name": "All Defect ", 
+            8: {"Name": "All Defect", 
                 "FunctionA": "allDefects(logFileName, 'A')", 
                 "FunctionB": "allDefects(logFileName, 'B')", 
                 "Notes": ""},
 
-            9: {"Name": "Every Other ", 
+            9: {"Name": "Every Other", 
                 "FunctionA": "everyOther(i)", 
                 "FunctionB": "everyOther(i)", 
                 "Notes": ""},

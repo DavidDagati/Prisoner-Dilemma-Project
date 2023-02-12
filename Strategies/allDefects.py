@@ -3,7 +3,4 @@
 
 def allDefects(logFile, playerID):
 
-    # Set Result to Defect
-    result = 1
-
-    return result
+    return 1
