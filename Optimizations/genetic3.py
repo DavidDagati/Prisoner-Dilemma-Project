@@ -19,15 +19,14 @@ def compete(solutions, sim):
     global movesB
     results = [0] *  len(solutions)
     for i in range(len(solutions)):
-        for j in range(10):
+        for j in [1,2,4,5,6,7,8,9]:
             movesA = solutions[i]
-            testList = [1,2,5,7,8]
-            sim.simulate(strategyA= 15, strategyB= random.choice(testList))
+            sim.simulate(strategyA= 15, strategyB= j)
             results[i] += sim.getCurrentScoreA()
     
     return results
 
-def getGenetic4Move_A(round, logFile):
+def getGenetic3Move_A(round, logFile):
     if(round == 0): return movesA[0]
 
     if(round == 1):
@@ -70,7 +69,7 @@ def getGenetic4Move_A(round, logFile):
 
 
 
-def getGenetic4Move_B(round, logFile):
+def getGenetic3Move_B(round, logFile):
     return 0
     # test = readLast_n_Lines(1, logFile)
     # print(round)
@@ -83,7 +82,7 @@ def getGenetic4Move_B(round, logFile):
 
 
 def fitness(result):
-    return -(result/10)
+    return result/10
 
 # Values for 3 memory:
 #         0,1
@@ -95,36 +94,38 @@ def fitness(result):
 # For 3 Levels:
 # [000, 001, 010, 011, 100, 101, 110, 111]
 
-def getValue(bestSolutions, solNum, round, k):
+def getValue(bestSolutions, solNum, round, k, popSize):
     p = 0.7
     if(round == 0):
         if(random.random() < p):
             return bestSolutions[solNum][1][0]
         else:
-            return bestSolutions[random.randint(0, 31)][1][0]
+            return bestSolutions[random.randint(0, (popSize//2)-1)][1][0]
             
     if(random.random() < p):
         return bestSolutions[solNum][1][round][k]
     else:
-        return bestSolutions[random.randint(0, 31)][1][round][k]
+        return bestSolutions[random.randint(0, (popSize//2)-1)][1][round][k]
 
 
-def startGeneticv4(sim):
+def startGeneticv3(sim, popSize):
     #Possible characters
     solutions = []
+    lowestScore = []
+    avgScore = []
     #Putting all possibilities in list
-    for _ in range(64):
+    for _ in range(popSize):
         temp = []
         temp.append(random.randint(0,1))
         temp.append([random.randint(0,1), random.randint(0,1)])
         temp.append([random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1)])
 
-        for i in range(3, 10):
+        for _ in range(3, 10):
             temp.append([random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1)])
         solutions.append(temp)
     
 
-    for i in range(200):
+    for i in range(100):
         results = compete(solutions, sim)
 
         rankedSolutions = []
@@ -132,52 +133,61 @@ def startGeneticv4(sim):
             rankedSolutions.append((fitness(results[j]), solutions[j]))
         
         rankedSolutions.sort()
-        rankedSolutions.reverse()
+        # rankedSolutions.reverse()
 
         print(f"=== Gen {i} best solution ===")
 
-        for o in range(10):
+        for o in range(3):
             print(rankedSolutions[o][0])
+
+        temp = 0
+        for _ in range(popSize):
+            temp += rankedSolutions[0][0]
         
-        if(i == 199):
-            with open("Results/genetic4.json", 'w') as file_object:  #open the file in write mode
+        temp = temp / popSize
+        avgScore.append(temp)
+        
+        lowestScore.append(rankedSolutions[0][0])
+        
+        if(i == 99):
+            with open("Results/GeneticPlays/genetic3_pop" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
                 json.dump(rankedSolutions[0][1], file_object)
             break
-        bestSolutions = rankedSolutions[:32]
+        bestSolutions = rankedSolutions[:(popSize//2)]
 
         newGen = []
         # * random.uniform(0.99, 1.01) will mutate by 2%
-        for i in range(32):
-            temp = [getValue(bestSolutions, i,0,0), 
-                    [getValue(bestSolutions, i,1,0),getValue(bestSolutions, i,1,1)], 
-                    [getValue(bestSolutions, i,2,0),getValue(bestSolutions, i,2,1),getValue(bestSolutions, i,2,2),getValue(bestSolutions, i,2,3)]]
+        for i in range((popSize//2)):
+            temp = [getValue(bestSolutions, i,0,0, popSize), 
+                    [getValue(bestSolutions, i,1,0, popSize),getValue(bestSolutions, i,1,1, popSize)], 
+                    [getValue(bestSolutions, i,2,0, popSize),getValue(bestSolutions, i,2,1, popSize),getValue(bestSolutions, i,2,2, popSize),getValue(bestSolutions, i,2,3, popSize)]]
 
             for j in range(3, 10):
-                temp.append([getValue(bestSolutions, i,j,0),
-                            getValue(bestSolutions, i,j,1),
-                            getValue(bestSolutions, i,j,2),
-                            getValue(bestSolutions, i,j,3),
-                            getValue(bestSolutions, i,j,4),
-                            getValue(bestSolutions, i,j,5),
-                            getValue(bestSolutions, i,j,6),
-                            getValue(bestSolutions, i,j,7)
+                temp.append([getValue(bestSolutions, i,j,0, popSize),
+                            getValue(bestSolutions, i,j,1, popSize),
+                            getValue(bestSolutions, i,j,2, popSize),
+                            getValue(bestSolutions, i,j,3, popSize),
+                            getValue(bestSolutions, i,j,4, popSize),
+                            getValue(bestSolutions, i,j,5, popSize),
+                            getValue(bestSolutions, i,j,6, popSize),
+                            getValue(bestSolutions, i,j,7, popSize)
                             ])
             
             newGen.append(temp)
 
-            temp = [getValue(bestSolutions, i,0,0), 
-                    [getValue(bestSolutions, i,1,0),getValue(bestSolutions, i,1,1)], 
-                    [getValue(bestSolutions, i,2,0),getValue(bestSolutions, i,2,1),getValue(bestSolutions, i,2,2),getValue(bestSolutions, i,2,3)]]
+            temp = [getValue(bestSolutions, i,0,0, popSize), 
+                    [getValue(bestSolutions, i,1,0, popSize),getValue(bestSolutions, i,1,1, popSize)], 
+                    [getValue(bestSolutions, i,2,0, popSize),getValue(bestSolutions, i,2,1, popSize),getValue(bestSolutions, i,2,2, popSize),getValue(bestSolutions, i,2,3, popSize)]]
 
             for j in range(3,10):
-                temp.append([getValue(bestSolutions, i,j,0),
-                            getValue(bestSolutions, i,j,1),
-                            getValue(bestSolutions, i,j,2),
-                            getValue(bestSolutions, i,j,3),
-                            getValue(bestSolutions, i,j,4),
-                            getValue(bestSolutions, i,j,5),
-                            getValue(bestSolutions, i,j,6),
-                            getValue(bestSolutions, i,j,7)
+                temp.append([getValue(bestSolutions, i,j,0, popSize),
+                            getValue(bestSolutions, i,j,1, popSize),
+                            getValue(bestSolutions, i,j,2, popSize),
+                            getValue(bestSolutions, i,j,3, popSize),
+                            getValue(bestSolutions, i,j,4, popSize),
+                            getValue(bestSolutions, i,j,5, popSize),
+                            getValue(bestSolutions, i,j,6, popSize),
+                            getValue(bestSolutions, i,j,7, popSize)
                             ])
 
             newGen.append(temp)
@@ -185,5 +195,10 @@ def startGeneticv4(sim):
         solutions = newGen
 
 
+    with open("Results/GeneticData/genetic3_scores_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+        json.dump(lowestScore, file_object)
+    with open("Results/GeneticData/genetic3_scores_averages_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+        json.dump(avgScore, file_object)
 
 # startGenetic(1)
+

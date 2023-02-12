@@ -45,10 +45,9 @@ def compete(solutions, sim):
     global movesB
     results = [0] *  len(solutions)
     for i in range(len(solutions)):
-        for j in range(10):
+        for j in [1,2,4,5,6,7,8,9]:
             movesA = solutions[i]
-            testList = [1,2,5,7,8]
-            sim.simulate(strategyA= 12, strategyB= random.choice(testList))
+            sim.simulate(strategyA= 12, strategyB= j)
             results[i] += sim.getCurrentScoreA()
     
     return results
@@ -62,20 +61,23 @@ def getGeneticMove_B(round):
 
 
 def fitness(result):
-    return -(result/10)
+    return result/10
 
 
-def startGeneticv1(sim):
+
+def startGeneticv1(sim, popSize):
     #Possible characters
 
     #Putting all possibilities in list
     solutions = []
+    lowestScore = []
+    avgScore = []
 
-    for _ in range(64):
-        solutions.append([random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1)])
+    for _ in range(popSize):
+        solutions.append([random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1), random.randint(0,1)])
 
 
-    for i in range(50):
+    for i in range(100):
         results = compete(solutions, sim)
 
         rankedSolutions = []
@@ -83,39 +85,56 @@ def startGeneticv1(sim):
             rankedSolutions.append((fitness(results[j]), solutions[j]))
         
         rankedSolutions.sort()
-        rankedSolutions.reverse()
+        # rankedSolutions.reverse()
 
         print(f"=== Gen {i} best solution ===")
         print(rankedSolutions[0])
 
-        if(i == 49):
-            with open("Results/genetic1.json", 'w') as file_object:  #open the file in write mode
+
+        temp = 0
+        for _ in range(popSize):
+            temp += rankedSolutions[0][0]
+        
+        temp = temp / popSize
+        avgScore.append(temp)
+
+        lowestScore.append(rankedSolutions[0][0])
+
+
+        if(i == 99):
+            with open("Results/GeneticPlays/genetic1_pop" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
                 json.dump(rankedSolutions[0][1], file_object)
             break
 
-        bestSolutions = rankedSolutions[:32]
+        bestSolutions = rankedSolutions[:(popSize//2)]
 
         newGen = []
         p = 0.7
         # * random.uniform(0.99, 1.01) will mutate by 2%
-        for i in range(32):
-            temp = [0,0,0,0,0,0]
-            for j in range(0, 6):
+        for i in range((popSize//2)):
+            temp = [0] * 10
+            for j in range(0, 10):
                 if(random.random() < p):
                     temp[j] = bestSolutions[i][1][j]
                 else:
-                    temp[j] = bestSolutions[random.randint(0, 31)][1][j] 
+                    temp[j] = bestSolutions[random.randint(0, (popSize//2)-1)][1][j] 
             
             newGen.append(temp)
 
-            for j in range(0, 6):
+            for j in range(0, 10):
                 if(random.random() < p):
                     temp[j] = bestSolutions[i][1][j]
                 else:
-                    temp[j] = bestSolutions[random.randint(0, 31)][1][j] 
+                    temp[j] = bestSolutions[random.randint(0, (popSize//2)-1)][1][j] 
             
             newGen.append(temp)
 
             
         
         solutions = newGen
+
+
+    with open("Results/GeneticData/genetic1_scores_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+        json.dump(lowestScore, file_object)
+    with open("Results/GeneticData/genetic1_scores_averages_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+        json.dump(avgScore, file_object)
