@@ -94,21 +94,27 @@ def fitness(result):
 # For 3 Levels:
 # [000, 001, 010, 011, 100, 101, 110, 111]
 
-def getValue(bestSolutions, solNum, round, k, popSize):
-    p = 0.7
+def getValue(bestSolutions, solNum, round, k, popSize, mut):
+    crossoverP = 0.8
+    val = 0
     if(round == 0):
-        if(random.random() < p):
-            return bestSolutions[solNum][1][0]
+        if(random.random() < crossoverP):
+            val = bestSolutions[solNum][1][0]
         else:
-            return bestSolutions[random.randint(0, (popSize//2)-1)][1][0]
-            
-    if(random.random() < p):
-        return bestSolutions[solNum][1][round][k]
+            val = bestSolutions[random.randint(0, (popSize//2)-1)][1][0]   
+    elif(random.random() < crossoverP):
+        val = bestSolutions[solNum][1][round][k]
     else:
-        return bestSolutions[random.randint(0, (popSize//2)-1)][1][round][k]
+        val = bestSolutions[random.randint(0, (popSize//2)-1)][1][round][k]
+
+    if(random.random() < mut):
+        if(val == 1): return 0
+        if(val == 0): return 1
+    else:
+        return val
 
 
-def startGeneticv3(sim, popSize):
+def startGeneticv3(sim, popSize, crossoverP):
     #Possible characters
     solutions = []
     lowestScore = []
@@ -150,7 +156,7 @@ def startGeneticv3(sim, popSize):
         lowestScore.append(rankedSolutions[0][0])
         
         if(i == 99):
-            with open("Results/GeneticPlays/genetic3_pop" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+            with open("Results/GeneticData_Mutations/genetic3_pop" + str(crossoverP) + ".json", 'w') as file_object:  #open the file in write mode
                 json.dump(rankedSolutions[0][1], file_object)
             break
         bestSolutions = rankedSolutions[:(popSize//2)]
@@ -158,36 +164,36 @@ def startGeneticv3(sim, popSize):
         newGen = []
         # * random.uniform(0.99, 1.01) will mutate by 2%
         for i in range((popSize//2)):
-            temp = [getValue(bestSolutions, i,0,0, popSize), 
-                    [getValue(bestSolutions, i,1,0, popSize),getValue(bestSolutions, i,1,1, popSize)], 
-                    [getValue(bestSolutions, i,2,0, popSize),getValue(bestSolutions, i,2,1, popSize),getValue(bestSolutions, i,2,2, popSize),getValue(bestSolutions, i,2,3, popSize)]]
+            temp = [getValue(bestSolutions, i,0,0, popSize, crossoverP), 
+                    [getValue(bestSolutions, i,1,0, popSize, crossoverP),getValue(bestSolutions, i,1,1, popSize, crossoverP)], 
+                    [getValue(bestSolutions, i,2,0, popSize, crossoverP),getValue(bestSolutions, i,2,1, popSize, crossoverP),getValue(bestSolutions, i,2,2, popSize, crossoverP),getValue(bestSolutions, i,2,3, popSize, crossoverP)]]
 
             for j in range(3, 10):
-                temp.append([getValue(bestSolutions, i,j,0, popSize),
-                            getValue(bestSolutions, i,j,1, popSize),
-                            getValue(bestSolutions, i,j,2, popSize),
-                            getValue(bestSolutions, i,j,3, popSize),
-                            getValue(bestSolutions, i,j,4, popSize),
-                            getValue(bestSolutions, i,j,5, popSize),
-                            getValue(bestSolutions, i,j,6, popSize),
-                            getValue(bestSolutions, i,j,7, popSize)
+                temp.append([getValue(bestSolutions, i,j,0, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,1, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,2, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,3, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,4, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,5, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,6, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,7, popSize, crossoverP)
                             ])
             
             newGen.append(temp)
 
-            temp = [getValue(bestSolutions, i,0,0, popSize), 
-                    [getValue(bestSolutions, i,1,0, popSize),getValue(bestSolutions, i,1,1, popSize)], 
-                    [getValue(bestSolutions, i,2,0, popSize),getValue(bestSolutions, i,2,1, popSize),getValue(bestSolutions, i,2,2, popSize),getValue(bestSolutions, i,2,3, popSize)]]
+            temp = [getValue(bestSolutions, i,0,0, popSize, crossoverP), 
+                    [getValue(bestSolutions, i,1,0, popSize, crossoverP),getValue(bestSolutions, i,1,1, popSize, crossoverP)], 
+                    [getValue(bestSolutions, i,2,0, popSize, crossoverP),getValue(bestSolutions, i,2,1, popSize, crossoverP),getValue(bestSolutions, i,2,2, popSize, crossoverP),getValue(bestSolutions, i,2,3, popSize, crossoverP)]]
 
             for j in range(3,10):
-                temp.append([getValue(bestSolutions, i,j,0, popSize),
-                            getValue(bestSolutions, i,j,1, popSize),
-                            getValue(bestSolutions, i,j,2, popSize),
-                            getValue(bestSolutions, i,j,3, popSize),
-                            getValue(bestSolutions, i,j,4, popSize),
-                            getValue(bestSolutions, i,j,5, popSize),
-                            getValue(bestSolutions, i,j,6, popSize),
-                            getValue(bestSolutions, i,j,7, popSize)
+                temp.append([getValue(bestSolutions, i,j,0, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,1, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,2, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,3, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,4, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,5, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,6, popSize, crossoverP),
+                            getValue(bestSolutions, i,j,7, popSize, crossoverP)
                             ])
 
             newGen.append(temp)
@@ -195,9 +201,9 @@ def startGeneticv3(sim, popSize):
         solutions = newGen
 
 
-    with open("Results/GeneticData/genetic3_scores_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+    with open("Results/GeneticData_Mutations/genetic3_scores_" + str(crossoverP) + ".json", 'w') as file_object:  #open the file in write mode
         json.dump(lowestScore, file_object)
-    with open("Results/GeneticData/genetic3_scores_averages_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+    with open("Results/GeneticData_Mutations/genetic3_scores_averages_" + str(crossoverP) + ".json", 'w') as file_object:  #open the file in write mode
         json.dump(avgScore, file_object)
 
 # startGenetic(1)

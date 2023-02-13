@@ -236,24 +236,30 @@ if __name__ == '__main__':
     sim = Simulator(numOfRounds= 10)
 
     # sim.simulate(4,0);
-    startGeneticv1(sim, 8)
-    startGeneticv2(sim, 8)
-    startGeneticv3(sim, 8)
+    # startGeneticv1(sim, 8)
+    # startGeneticv2(sim, 8)
+    # startGeneticv3(sim, 8)
 
-    startGeneticv1(sim, 16)
-    startGeneticv2(sim, 16)
-    startGeneticv3(sim, 16)
+    # startGeneticv1(sim, 16)
+    # startGeneticv2(sim, 16)
+    # startGeneticv3(sim, 16)
 
-    startGeneticv1(sim, 32)
-    startGeneticv2(sim, 32)
-    startGeneticv3(sim, 32)
+    # startGeneticv1(sim, 32)
+    # startGeneticv2(sim, 32)
+    # startGeneticv3(sim, 32)
 
-    startGeneticv1(sim, 64)
-    startGeneticv2(sim, 64)
-    startGeneticv3(sim, 64)
+    # startGeneticv1(sim, 64)
+    # startGeneticv2(sim, 64)
+    # startGeneticv3(sim, 64)
 
-    startGeneticv1(sim, 128)
-    startGeneticv2(sim, 128)
-    startGeneticv3(sim, 128)
+    # startGeneticv1(sim, 128)
+    # startGeneticv2(sim, 128)
+    # startGeneticv3(sim, 128)
+
+    startGeneticv3(sim, 64, 0)
+    startGeneticv3(sim, 64, 0.001)
+    startGeneticv3(sim, 64, 0.02)
+    startGeneticv3(sim, 64, 0.05)
+    startGeneticv3(sim, 64, 0.1)
 
 
