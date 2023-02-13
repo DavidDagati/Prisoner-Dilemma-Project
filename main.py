@@ -34,7 +34,7 @@ from Strategies.random import Random
 from Strategies.allCooperate import allCooperate
 from Strategies.allDefects import allDefects
 from Strategies.everyOther import everyOther
-# from Strategies.grim import grim
+from Strategies.grim import grim
 from Strategies.everyOther import everyOther
 # from Optimizations.hillClimbing import hillClimbing
 from Optimizations.useGenetic import useGeneticV1
