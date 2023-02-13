@@ -30,7 +30,7 @@ from Strategies.pavlov import pavlov
 from Strategies.adaptivePavlov import adaptivePavlov
 from Strategies.suspiciousTitForTat import suspiciousTitForTat
 from Strategies.titForTwoTats import titForTwoTats
-from Strategies.random import Random
+from Strategies.random_strat import random
 from Strategies.allCooperate import allCooperate
 from Strategies.allDefects import allDefects
 from Strategies.everyOther import everyOther
