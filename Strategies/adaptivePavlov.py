@@ -12,24 +12,19 @@ def allDefect():
 def adaptivePavlov(logFile, playerID):
     # Opens log file
     with open(logFile, "r") as file:
-        for count, line in enumerate(file):
-            if (count == 6):
-                break
-            pass
+        try:
+            lines = file.read().splitlines()
+            count = len(lines)
+            last_line = lines[-1]
+        except IndexError:
+            last_line = None
         
-        # Obtains the last line
-        file.seek(0,0)
-        last_line = file.readlines()[-1]
-        
-        # Obtains the first 6 lines
-        lines = [0] * 6
-        if (count >= 6):
-            for i in range (0,6):
-                file.seek(0,0)
-                try:
-                    lines[i] = file.readlines()[i]
-                except:
-                    pass
+        # if (count >= 6):
+        #     for i in range (0,6):
+        #         try:
+        #             lines[i] = file.readlines()[i]
+        #         except:
+        #             pass
                 
     # Defining the opponent position
     opponentSpace = 2 if playerID == 0 else 0
