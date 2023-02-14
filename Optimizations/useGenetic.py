@@ -12,7 +12,7 @@ def useGeneticV3(ltr, round, logFile):
     if(round >= 10):
         round = ((round-3) % 7) + 3 
 
-    with open('Results/GeneticPlays/genetic3_pop64.json', 'r') as file_object:  
+    with open('Results/GeneticPlays_Final/genetic3_pop64.json', 'r') as file_object:  
         data = json.load(file_object)  
         if(ltr == 'A'):
             return getGenetic3Move_A(round, logFile, data, 2)
