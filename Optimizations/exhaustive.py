@@ -37,9 +37,9 @@ def exhaustive():
                 print(f"Missing {sim.menu[i]['Name']} or {sim.menu[j]['Name']}")
             end = datetime.now().strftime("%H:%M:%S")
 
-            if sim.getCurrentScoreA() > sim.getCurrentScoreB():
+            if sim.getCurrentScoreA() < sim.getCurrentScoreB():
                 winner = sim.menu[i]['Name']
-            elif sim.getCurrentScoreA() < sim.getCurrentScoreB():
+            elif sim.getCurrentScoreA() > sim.getCurrentScoreB():
                 winner = sim.menu[j]['Name']
             else:
                 winner = "Tie"
@@ -55,21 +55,17 @@ def exhaustive():
                             "Winner": winner
                         }
             session["Session Data"][cycle_count] = round_data
-            
-    with open('Results\exhaustive_log.json', 'a') as file:
+    
+    json_file = f'Results\Exhaustive\exhaustive_log_{session_name}.json'
+
+    with open(json_file, 'a') as file:
         json.dump(session, file)
 
+    return json_file
 
+def rankWinners(results):
 
-def rankScore():
-    # read log winners and rank based on score and how often
-    # one for score one for time
-    # append #-of-rounds to filename
-    # run 5 times 
-    # graph y axis rounds
-    # x axis strategies 
-
-    with open('Results\exhaustive_log.json', 'r') as file:
+    with open(results, 'r') as file:
         e_log = json.load(file)
 
         y = ["Adaptive Pavlov", "All Cooperate", "All Defects", "Every Other", "Grim", "Pavlov", "Random", "Suspicious Tit For Tat", "Tic For Tac", "Tit For Two Tats", "Tie"]
@@ -117,25 +113,17 @@ def rankScore():
 
         # Example data
         y_pos = np.arange(len(y))
-        error = np.random.rand(len(y))
 
-        ax.barh(y_pos, x, xerr=error, align='center')
+        bars = ax.barh(y_pos, x, align='center')
         ax.set_yticks(y_pos, labels=y)
+        ax.bar_label(bars)
         ax.invert_yaxis()  # labels read top-to-bottom
         ax.set_xlabel('Score')
         ax.set_title('Exhaustive Winner Count')
 
-        plt.show()
-                
-    return
-
-def rankTime():
-    # read log winners and rank based on score and how often
-    # one for score one for time
-    # append #-of-rounds to filename
-    # run 5 times 
-    # graph y axis rounds
-    # x axis strategies 
+        plt.savefig(f'Results\Exhaustive\Exhaustive Winner Count {e_log["Session Name"]}.png',bbox_inches='tight')
+        # plt.show()
+       
     return
         
 if __name__ == "__main__":
@@ -151,5 +139,5 @@ if __name__ == "__main__":
     # Now able to import Simulator
     from main import Simulator
 
-    exhaustive()
-    rankScore()
+    results = exhaustive()
+    rankWinners(results)
