@@ -19,7 +19,7 @@ def compete(solutions, sim):
     global movesB
     results = [0] *  len(solutions)
     for i in range(len(solutions)):
-        for j in [1,2,4,5,6,7,8,9]:
+        for j in [1,2,4,5,7,8,9]:
             movesA = solutions[i]
             sim.simulate(strategyA= 15, strategyB= j)
             results[i] += sim.getCurrentScoreA()
@@ -82,7 +82,7 @@ def getGenetic3Move_B(round, logFile):
 
 
 def fitness(result):
-    return result/10
+    return result/8.75
 
 # Values for 3 memory:
 #         0,1
@@ -94,8 +94,8 @@ def fitness(result):
 # For 3 Levels:
 # [000, 001, 010, 011, 100, 101, 110, 111]
 
-def getValue(bestSolutions, solNum, round, k, popSize, mut):
-    crossoverP = 0.8
+def getValue(bestSolutions, solNum, round, k, popSize, crossoverP):
+    mut = 0.001
     val = 0
     if(round == 0):
         if(random.random() < crossoverP):
@@ -156,7 +156,7 @@ def startGeneticv3(sim, popSize, crossoverP):
         lowestScore.append(rankedSolutions[0][0])
         
         if(i == 99):
-            with open("Results/GeneticData_Mutations/genetic3_pop" + str(crossoverP) + ".json", 'w') as file_object:  #open the file in write mode
+            with open("Results/GeneticData_Crossover/genetic3_pop" + str(crossoverP) + ".json", 'w') as file_object:  #open the file in write mode
                 json.dump(rankedSolutions[0][1], file_object)
             break
         bestSolutions = rankedSolutions[:(popSize//2)]
@@ -201,9 +201,9 @@ def startGeneticv3(sim, popSize, crossoverP):
         solutions = newGen
 
 
-    with open("Results/GeneticData_Mutations/genetic3_scores_" + str(crossoverP) + ".json", 'w') as file_object:  #open the file in write mode
+    with open("Results/GeneticData_Crossover/genetic3_scores_" + str(crossoverP) + ".json", 'w') as file_object:  #open the file in write mode
         json.dump(lowestScore, file_object)
-    with open("Results/GeneticData_Mutations/genetic3_scores_averages_" + str(crossoverP) + ".json", 'w') as file_object:  #open the file in write mode
+    with open("Results/GeneticData_Crossover/genetic3_scores_averages_" + str(crossoverP) + ".json", 'w') as file_object:  #open the file in write mode
         json.dump(avgScore, file_object)
 
 # startGenetic(1)

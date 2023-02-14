@@ -30,7 +30,7 @@ from Strategies.pavlov import pavlov
 from Strategies.adaptivePavlov import adaptivePavlov
 from Strategies.suspiciousTitForTat import suspiciousTitForTat
 from Strategies.titForTwoTats import titForTwoTats
-from Strategies.random import Random
+from Strategies.random_strat import random
 from Strategies.allCooperate import allCooperate
 from Strategies.allDefects import allDefects
 from Strategies.everyOther import everyOther
@@ -64,7 +64,7 @@ class Simulator:
         self.scoreB = 0
 
         self.menu = {
-            0: {"Name": "UserInput", 
+ 0: {"Name": "UserInput", 
                 "FunctionA": "userInput(logFileName, 'A')", 
                 "FunctionB": "userInput(logFileName, 'B')", 
                 "Notes": "No Strategy"},
@@ -95,8 +95,8 @@ class Simulator:
                 "Notes": ""},
 
             6: {"Name": "Random", 
-                "FunctionA": "Random(logFileName, 'A')", 
-                "FunctionB": "Random(logFileName, 'B')", 
+                "FunctionA": "random(logFileName, 'A')", 
+                "FunctionB": "random(logFileName, 'B')", 
                 "Notes": ""}, 
 
             7: {"Name": "All Cooperate", 
@@ -104,12 +104,12 @@ class Simulator:
                 "FunctionB": "allCooperate()", 
                 "Notes": ""}, 
 
-            8: {"Name": "All Defect ", 
+            8: {"Name": "All Defect", 
                 "FunctionA": "allDefects(logFileName, 'A')", 
                 "FunctionB": "allDefects(logFileName, 'B')", 
                 "Notes": ""},
 
-            9: {"Name": "Every Other ", 
+            9: {"Name": "Every Other", 
                 "FunctionA": "everyOther(i)", 
                 "FunctionB": "everyOther(i)", 
                 "Notes": ""},
@@ -256,10 +256,18 @@ if __name__ == '__main__':
     # startGeneticv2(sim, 128)
     # startGeneticv3(sim, 128)
 
-    startGeneticv3(sim, 64, 0)
-    startGeneticv3(sim, 64, 0.001)
-    startGeneticv3(sim, 64, 0.02)
-    startGeneticv3(sim, 64, 0.05)
-    startGeneticv3(sim, 64, 0.1)
+    # startGeneticv3(sim, 64, 0)
+    # startGeneticv3(sim, 64, 0.001)
+    # startGeneticv3(sim, 64, 0.02)
+    # startGeneticv3(sim, 64, 0.05)
+    # startGeneticv3(sim, 64, 0.1)
+
+
+    startGeneticv3(sim, 64, 0.5)
+    startGeneticv3(sim, 64, 0.7)
+    startGeneticv3(sim, 64, 0.8)
+    startGeneticv3(sim, 64, 0.9)
+    startGeneticv3(sim, 64, 0.95)
+    startGeneticv3(sim, 64, 0.99)
 
 
