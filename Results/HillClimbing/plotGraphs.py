@@ -19,7 +19,7 @@ print(winners)
 
 colors = ['green', 'blue', 'purple', 'brown', 'teal', 'orange', 'red', 'peru', 'yellow', 'slateblue']
 plt.barh(winners, wins, color=colors)
-plt.title('Hill Climbing Optimization Results for Highest Score(Size: 10, Iterations: 50)', fontsize=14)
+plt.title('Hill Climbing Optimization Results for Lowest Score(Size: 10, Iterations: 50)', fontsize=14)
 plt.xlabel('Wins (%)', fontsize=14)
 plt.ylabel('Winners', fontsize=14)
 plt.grid(True)
