@@ -19,7 +19,7 @@ def exhaustive():
                     "Session Data": {}
             }
 
-    # strategies = ["adaptivePavlov", "allCooperate", "allDefects", "everyOther", "grim", "pavlov", "random", "suspiciousTitForTat", "ticForTac", "titForTwoTats"]
+    # strategies = ["adaptivePavlov", "allCooperate", "allDefects", "everyOther", "grim", "pavlov", "random", "suspiciousTitForTat", "titForTat", "titForTwoTats"]
 
     cycle_count = 0
 
@@ -68,7 +68,7 @@ def rankWinners(results):
     with open(results, 'r') as file:
         e_log = json.load(file)
 
-        y = ["Adaptive Pavlov", "All Cooperate", "All Defects", "Every Other", "Grim", "Pavlov", "Random", "Suspicious Tit For Tat", "Tic For Tac", "Tit For Two Tats", "Tie"]
+        y = ["Adaptive Pavlov", "All Cooperate", "All Defects", "Every Other", "Grim", "Pavlov", "Random", "Suspicious Tit For Tat", "Tit For Tat", "Tit For Two Tats", "Tie"]
 
         ap_count = 0
         ac_count = 0
@@ -83,7 +83,7 @@ def rankWinners(results):
         tie_count = 0
 
         for cycle in e_log["Session Data"]:
-            if e_log["Session Data"][cycle]["Winner"] == "Tic for Tat":
+            if e_log["Session Data"][cycle]["Winner"] == "Tit for Tat":
                 t4t_count += 1
             elif e_log["Session Data"][cycle]["Winner"] == "Pavlov":
                 p_count += 1

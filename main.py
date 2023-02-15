@@ -55,7 +55,7 @@ class Simulator:
                 "FunctionB": "userInput(logFileName, 'B')", 
                 "Notes": "No Strategy"},
 
-            1: {"Name": "Tic for Tat",
+            1: {"Name": "Tit for Tat",
                 "FunctionA": "titForTat_A(logFileName)", 
                 "FunctionB": "titForTat_B(logFileName)", 
                 "Notes": ""}, 

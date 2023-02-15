@@ -12,7 +12,7 @@ def useGeneticV3(ltr, round, logFile):
     if(round >= 10):
         round = ((round-3) % 7) + 3 
 
-    with open('Results/GeneticPlays_Final/genetic3_pop64.json', 'r') as file_object:  
+    with open('Results/GeneticPlays_Final/genetic3_mut0.001_pop128_crP0.5.json', 'r') as file_object:  
         data = json.load(file_object)  
         if(ltr == 'A'):
             return getGenetic3Move_A(round, logFile, data, 2)
@@ -22,7 +22,7 @@ def useGeneticV3(ltr, round, logFile):
 def useGeneticV2(ltr, round, logFile):
     if(round >= 10):
         round = ((round-1) % 9) + 1     
-    with open('Results/GeneticPlays/genetic2_pop32.json', 'r') as file_object:  
+    with open('Results/GeneticPlays_Final/genetic2_mut0_pop32_crP0.7.json', 'r') as file_object:  
         data = json.load(file_object)  
         if(ltr == 'A'):
             return getGenetic2Move_A(round, logFile, data, 2)
@@ -32,7 +32,7 @@ def useGeneticV2(ltr, round, logFile):
 def useGeneticV1(ltr, round, logFile):
     if(round >= 6):
         round = round % 6 
-    with open('Results/GeneticPlays/genetic1_pop32.json', 'r') as file_object:  
+    with open('Results/GeneticPlays_Final/genetic1_mut0_pop32_crP0.7.json', 'r') as file_object:  
         data = json.load(file_object) 
         if(ltr == 'A'): 
             return getGenetic1Move_A(round, data)
