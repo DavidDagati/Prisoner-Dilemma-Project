@@ -107,14 +107,14 @@ def rankWinners(results):
                 tie_count += 1
 
         x = [ap_count, ac_count, ad_count, eo_count, g_count, p_count, r_count, st4t_count, t4t_count, t4tt_count, tie_count]
-
+        colors = ['lightcoral', 'sandybrown', 'khaki', 'olivedrab', 'darkseagreen', 'lightseagreen', 'lightblue', 'lightslategrey', 'cornflowerblue', 'plum', 'lightpink']
         plt.rcdefaults()
         fig, ax = plt.subplots()
 
         # Example data
         y_pos = np.arange(len(y))
 
-        bars = ax.barh(y_pos, x, align='center')
+        bars = ax.barh(y_pos, x, align='center', color= colors)
         ax.set_yticks(y_pos, labels=y)
         ax.bar_label(bars)
         ax.invert_yaxis()  # labels read top-to-bottom
