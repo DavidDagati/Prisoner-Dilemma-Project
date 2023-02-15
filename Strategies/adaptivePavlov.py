@@ -10,30 +10,36 @@ def allDefect():
 
 
 def adaptivePavlov(logFile, playerID):
+    count = 0
     # Opens log file
     with open(logFile, "r") as file:
+        for count, line in enumerate(file):
+            if (count == 6):
+                break
+            pass
+        print ("count: ",count)
+        # Obtains the last line
+        file.seek(0,0)
         try:
-            lines = file.read().splitlines()
-            count = len(lines)
-            last_line = lines[-1]
-        except IndexError:
-            last_line = None
+            last_line = file.readlines()[-1]
+        except:
+            return 0
         
-        # if (count >= 6):
-        #     for i in range (0,6):
-        #         try:
-        #             lines[i] = file.readlines()[i]
-        #         except:
-        #             pass
-                
+        # Obtains the first 6 lines
+        lines = [0] * 6
+        if (count >= 5):
+            for i in range (0,6):
+                file.seek(0,0)
+                try:
+                    lines[i] = file.readlines()[i]
+                except:
+                    pass
+    file.close()           
     # Defining the opponent position
     opponentSpace = 2 if playerID == 0 else 0
     
     # For first 6 moves, the technique follows tit for tat
-    if (count < 6):
-        # Tit For Tat
-        if count == 0:
-            return 0
+    if (count < 5):
         return tit_for_tat(last_line, opponentSpace)
     else:
     # For the rest of the moves it will adapt to the corresponding strategies
@@ -54,4 +60,4 @@ def adaptivePavlov(logFile, playerID):
         
 
 # Test:
-#print(adaptivePavlov('../Results/log.txt', 1))
+#print(adaptivePavlov('../Results/hillClimbing.txt', 1))

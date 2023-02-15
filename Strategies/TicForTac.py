@@ -10,14 +10,14 @@ def titForTat_A(logFile):
     test = readLastLine(logFile)
     if(not test): return 0
 
-    if(test[2] == "0"): return 1
+    if(test[2] == "0"): return 0
 
-    return 0
+    return 1
 
 def titForTat_B(logFile):
     test = readLastLine(logFile)
     if(not test): return 0
 
-    if(test[0] == "0"): return 1
+    if(test[0] == "0"): return 0
 
-    return 0
+    return 1
