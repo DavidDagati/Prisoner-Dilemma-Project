@@ -34,7 +34,7 @@ from Strategies.random_strat import random
 from Strategies.allCooperate import allCooperate
 from Strategies.allDefects import allDefects
 from Strategies.everyOther import everyOther
-# from Strategies.grim import grim
+from Strategies.grim import grim
 # from Optimizations.hillClimbing import hillClimbing
 from Optimizations.useGenetic import useGeneticV1
 from Optimizations.useGenetic import useGeneticV2
@@ -64,7 +64,7 @@ class Simulator:
         self.scoreB = 0
 
         self.menu = {
- 0: {"Name": "UserInput", 
+            0: {"Name": "UserInput", 
                 "FunctionA": "userInput(logFileName, 'A')", 
                 "FunctionB": "userInput(logFileName, 'B')", 
                 "Notes": "No Strategy"},
@@ -235,39 +235,45 @@ class Simulator:
 if __name__ == '__main__':
     sim = Simulator(numOfRounds= 10)
 
+    startGeneticv3(sim, 128, 0.5, 0.001, "GeneticPlays_Final")
+
     # sim.simulate(4,0);
     # startGeneticv1(sim, 8)
     # startGeneticv2(sim, 8)
-    # startGeneticv3(sim, 8)
+    # startGeneticv3(sim, 8, 0.7)
 
     # startGeneticv1(sim, 16)
     # startGeneticv2(sim, 16)
-    # startGeneticv3(sim, 16)
+    # startGeneticv3(sim, 16, 0.7)
 
     # startGeneticv1(sim, 32)
     # startGeneticv2(sim, 32)
-    # startGeneticv3(sim, 32)
+    # startGeneticv3(sim, 32, 0.7)
 
     # startGeneticv1(sim, 64)
     # startGeneticv2(sim, 64)
-    # startGeneticv3(sim, 64)
+    # startGeneticv3(sim, 64, 0.7)
 
     # startGeneticv1(sim, 128)
     # startGeneticv2(sim, 128)
-    # startGeneticv3(sim, 128)
+    # startGeneticv3(sim, 128, 0.7)
 
-    # startGeneticv3(sim, 64, 0)
-    # startGeneticv3(sim, 64, 0.001)
-    # startGeneticv3(sim, 64, 0.02)
-    # startGeneticv3(sim, 64, 0.05)
-    # startGeneticv3(sim, 64, 0.1)
+    # startGeneticv1(sim, 256)
+    # startGeneticv2(sim, 256)
+    # startGeneticv3(sim, 256, 0.7)
+
+    # startGeneticv3(sim, 128, 0)
+    # startGeneticv3(sim, 128, 0.001)
+    # startGeneticv3(sim, 128, 0.02)
+    # startGeneticv3(sim, 128, 0.05)
+    # startGeneticv3(sim, 128, 0.1)
 
 
-    startGeneticv3(sim, 64, 0.5)
-    startGeneticv3(sim, 64, 0.7)
-    startGeneticv3(sim, 64, 0.8)
-    startGeneticv3(sim, 64, 0.9)
-    startGeneticv3(sim, 64, 0.95)
-    startGeneticv3(sim, 64, 0.99)
+    # startGeneticv3(sim, 128, 0.5)
+    # startGeneticv3(sim, 128, 0.7)
+    # startGeneticv3(sim, 128, 0.8)
+    # startGeneticv3(sim, 128, 0.9)
+    # startGeneticv3(sim, 128, 0.95)
+    # startGeneticv3(sim, 128, 0.99)
 
 

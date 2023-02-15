@@ -19,7 +19,7 @@ def compete(solutions, sim):
     global movesB
     results = [0] *  len(solutions)
     for i in range(len(solutions)):
-        for j in [1,2,4,5,6,7,8,9]:
+        for j in [1,2,4,5,6,7,8,9,10]:
             movesA = solutions[i]
             sim.simulate(strategyA= 14, strategyB= j)
             results[i] += sim.getCurrentScoreA()
@@ -49,7 +49,7 @@ def getGenetic2Move_B(round, logFile):
 
 
 def fitness(result):
-    return result/10
+    return result/9
 
 
 def startGeneticv2(sim, popSize):
@@ -92,7 +92,7 @@ def startGeneticv2(sim, popSize):
         lowestScore.append(rankedSolutions[0][0])
     
         if(i == 99):
-            with open("Results/GeneticPlays/genetic2_pop" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+            with open("Results/GeneticData_PopulationTest/genetic2_pop" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
                 json.dump(rankedSolutions[0][1], file_object)
             break
         
@@ -146,7 +146,7 @@ def startGeneticv2(sim, popSize):
         solutions = newGen
 
 
-    with open("Results/GeneticData/genetic2_scores_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+    with open("Results/GeneticData_PopulationTest/genetic2_scores_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
         json.dump(lowestScore, file_object)
-    with open("Results/GeneticData/genetic2_scores_averages_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
+    with open("Results/GeneticData_PopulationTest/genetic2_scores_averages_" + str(popSize) + ".json", 'w') as file_object:  #open the file in write mode
         json.dump(avgScore, file_object)
