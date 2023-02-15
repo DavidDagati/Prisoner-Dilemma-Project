@@ -212,68 +212,48 @@ class Simulator:
         return None
 
 
-# Test Code for simulator
-
-# testSim = Simulator(5)
-
-# testSim.simulate(0,0)
-
-# print(f"Score is {testSim.getCurrentScoreA()} vs {testSim.getCurrentScoreB()}")
-
-# if __name__ == '__main__':
-
-#     num_of_rounds = int(input("Enter a Number of Rounds: "))
-#     a = int(input("Enter a ID of Strategy A: "))
-#     b = int(input("Enter a ID of Strategy B: "))
-#     sim = Simulator(numOfRounds= num_of_rounds)
-#     sim.simulate(strategyA= a, strategyB= b)
-
-#     print(f"Score is {sim.getCurrentScoreA()} vs {sim.getCurrentScoreB()}")
-
-
 
 if __name__ == '__main__':
     sim = Simulator(numOfRounds= 10)
 
+    # Final Genetic Strategy:
     startGeneticv3(sim, 128, 0.5, 0.001, "GeneticPlays_Final")
 
-    # sim.simulate(4,0);
-    # startGeneticv1(sim, 8)
-    # startGeneticv2(sim, 8)
-    # startGeneticv3(sim, 8, 0.7)
+    # Population Test Genetic V1
+    startGeneticv1(sim, 8)
+    startGeneticv1(sim, 16)
+    startGeneticv1(sim, 32)
+    startGeneticv1(sim, 64)
+    startGeneticv1(sim, 128)
 
-    # startGeneticv1(sim, 16)
-    # startGeneticv2(sim, 16)
-    # startGeneticv3(sim, 16, 0.7)
+    # Population Test Genetic V2
+    startGeneticv2(sim, 8)
+    startGeneticv2(sim, 16)
+    startGeneticv2(sim, 32)
+    startGeneticv2(sim, 64)
+    startGeneticv2(sim, 128)
 
-    # startGeneticv1(sim, 32)
-    # startGeneticv2(sim, 32)
-    # startGeneticv3(sim, 32, 0.7)
+    # Population Test Genetic V3
+    startGeneticv3(sim, 8, 0.7, 0, "GeneticData_PopulationTest")
+    startGeneticv3(sim, 16, 0.7, 0, "GeneticData_PopulationTest")
+    startGeneticv3(sim, 32, 0.7, 0, "GeneticData_PopulationTest")
+    startGeneticv3(sim, 64, 0.7, 0, "GeneticData_PopulationTest")
+    startGeneticv3(sim, 128, 0.7, 0, "GeneticData_PopulationTest")
 
-    # startGeneticv1(sim, 64)
-    # startGeneticv2(sim, 64)
-    # startGeneticv3(sim, 64, 0.7)
-
-    # startGeneticv1(sim, 128)
-    # startGeneticv2(sim, 128)
-    # startGeneticv3(sim, 128, 0.7)
-
-    # startGeneticv1(sim, 256)
-    # startGeneticv2(sim, 256)
-    # startGeneticv3(sim, 256, 0.7)
-
-    # startGeneticv3(sim, 128, 0)
-    # startGeneticv3(sim, 128, 0.001)
-    # startGeneticv3(sim, 128, 0.02)
-    # startGeneticv3(sim, 128, 0.05)
-    # startGeneticv3(sim, 128, 0.1)
+    # Mutation Test Genetic V3
+    startGeneticv3(sim, 128, 0.7, 0.000, "GeneticData_Mutations")
+    startGeneticv3(sim, 128, 0.7, 0.001, "GeneticData_Mutations")
+    startGeneticv3(sim, 128, 0.7, 0.020, "GeneticData_Mutations")
+    startGeneticv3(sim, 128, 0.7, 0.050, "GeneticData_Mutations")
+    startGeneticv3(sim, 128, 0.7, 0.100, "GeneticData_Mutations")
 
 
-    # startGeneticv3(sim, 128, 0.5)
-    # startGeneticv3(sim, 128, 0.7)
-    # startGeneticv3(sim, 128, 0.8)
-    # startGeneticv3(sim, 128, 0.9)
-    # startGeneticv3(sim, 128, 0.95)
-    # startGeneticv3(sim, 128, 0.99)
+    # Crossover Test Genetic V3
+    startGeneticv3(sim, 128, 0.5, 0.001, "GeneticData_Crossover")
+    startGeneticv3(sim, 128, 0.7, 0.001, "GeneticData_Crossover")
+    startGeneticv3(sim, 128, 0.8, 0.001, "GeneticData_Crossover")
+    startGeneticv3(sim, 128, 0.9, 0.001, "GeneticData_Crossover")
+    startGeneticv3(sim, 128, 0.95, 0.001, "GeneticData_Crossover")
+    startGeneticv3(sim, 128, 0.99, 0.001, "GeneticData_Crossover")
 
 

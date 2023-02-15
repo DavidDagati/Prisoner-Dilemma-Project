@@ -13,7 +13,7 @@ def readLast_n_Lines(n, fileName):
     with open(fileName, "r") as file:
         return file.readlines()[-n:]
 
-
+# All generations will compete against the training set 
 def compete(solutions, sim):
     global movesA
     global movesB
@@ -26,14 +26,18 @@ def compete(solutions, sim):
     
     return results
 
+# Gets the array element for the move
 def getGenetic3Move_A(round, logFile):
+    # Only one option in round 1:
     if(round == 0): return movesA[0]
 
+    # Two Options in round 2
     if(round == 1):
         test = readLast_n_Lines(1, logFile)
         if(test[0][2] == "0"): return movesA[round][0]
         return movesA[round][1]
     
+    # Four Options in round 3
     if(round == 2):
         test = readLast_n_Lines(2, logFile)
         if(test[1][2] == "0"):
@@ -44,7 +48,8 @@ def getGenetic3Move_A(round, logFile):
             if(test[0][2] == "0"):
                 return movesA[round][2] 
             return movesA[round][3] 
-
+    
+    # Eight Options in remaining rounds
     else:
         test = readLast_n_Lines(3, logFile)
         if(test[2][2] == "0"):
@@ -69,43 +74,27 @@ def getGenetic3Move_A(round, logFile):
 
 
 
-def getGenetic3Move_B(round, logFile):
-    return 0
-    # test = readLast_n_Lines(1, logFile)
-    # print(round)
-    
-    # if(test[0] == "0"): return movesA[round][0]
-
-    # return movesA[round][1]
-
-
-
 
 def fitness(result):
     return result/8
 
-# Values for 3 memory:
-#         0,1
-#   0,1        0,1
-# 0,1 0,1    0,1  0,1
 
-# For 2 levels:
-# [00, 01, 10, 11]
-# For 3 Levels:
-# [000, 001, 010, 011, 100, 101, 110, 111]
 
 def getValue(bestSolutions, solNum, round, k, popSize, crossoverP, mut):
     val = 0
+    # Special case for round 1:
     if(round == 0):
         if(random.random() < crossoverP):
             val = bestSolutions[solNum][1][0]
         else:
             val = bestSolutions[random.randint(0, (popSize//2)-1)][1][0]   
+    # Perform crossover:
     elif(random.random() < crossoverP):
         val = bestSolutions[solNum][1][round][k]
     else:
         val = bestSolutions[random.randint(0, (popSize//2)-1)][1][round][k]
 
+    # Perform Mutation:
     if(random.random() < mut):
         if(val == 1): return 0
         if(val == 0): return 1
@@ -138,13 +127,13 @@ def startGeneticv3(sim, popSize, crossoverP, mut, folder="Default"):
             rankedSolutions.append((fitness(results[j]), solutions[j]))
         
         rankedSolutions.sort()
-        # rankedSolutions.reverse()
 
         print(f"=== Gen {i} top 3 scores ===")
 
         for o in range(3):
             print(rankedSolutions[o][0])
 
+        # Calculate average score
         temp = 0
         for _ in range(popSize):
             temp += rankedSolutions[0][0]
@@ -152,8 +141,10 @@ def startGeneticv3(sim, popSize, crossoverP, mut, folder="Default"):
         temp = temp / popSize
         avgScore.append(temp)
         
+        # Add lowest score
         lowestScore.append(rankedSolutions[0][0])
         
+        # Dump final solution when complete
         if(i == 99):
             with open(f"Results/{folder}/genetic3_mut{mut}_pop{popSize}_crP{crossoverP}.json", 'w') as file_object:  #open the file in write mode
                 json.dump(rankedSolutions[0][1], file_object)
@@ -161,12 +152,14 @@ def startGeneticv3(sim, popSize, crossoverP, mut, folder="Default"):
         bestSolutions = rankedSolutions[:(popSize//2)]
 
         newGen = []
-        # * random.uniform(0.99, 1.01) will mutate by 2%
+        # Generate 64 New Solutions
         for i in range((popSize//2)):
+            # Generate First three rounds:
             temp = [getValue(bestSolutions, i,0,0, popSize, crossoverP, mut), 
                     [getValue(bestSolutions, i,1,0, popSize, crossoverP, mut),getValue(bestSolutions, i,1,1, popSize, crossoverP, mut)], 
                     [getValue(bestSolutions, i,2,0, popSize, crossoverP, mut),getValue(bestSolutions, i,2,1, popSize, crossoverP, mut),getValue(bestSolutions, i,2,2, popSize, crossoverP, mut),getValue(bestSolutions, i,2,3, popSize, crossoverP, mut)]]
 
+            # Generate remaining rounds:
             for j in range(3, 10):
                 temp.append([getValue(bestSolutions, i,j,0, popSize, crossoverP, mut),
                             getValue(bestSolutions, i,j,1, popSize, crossoverP, mut),
@@ -180,10 +173,12 @@ def startGeneticv3(sim, popSize, crossoverP, mut, folder="Default"):
             
             newGen.append(temp)
 
+            # Generate First three rounds:
             temp = [getValue(bestSolutions, i,0,0, popSize, crossoverP, mut), 
                     [getValue(bestSolutions, i,1,0, popSize, crossoverP, mut),getValue(bestSolutions, i,1,1, popSize, crossoverP, mut)], 
                     [getValue(bestSolutions, i,2,0, popSize, crossoverP, mut),getValue(bestSolutions, i,2,1, popSize, crossoverP, mut),getValue(bestSolutions, i,2,2, popSize, crossoverP, mut),getValue(bestSolutions, i,2,3, popSize, crossoverP, mut)]]
 
+            # Generate remaining rounds:
             for j in range(3,10):
                 temp.append([getValue(bestSolutions, i,j,0, popSize, crossoverP, mut),
                             getValue(bestSolutions, i,j,1, popSize, crossoverP, mut),
