@@ -17,7 +17,6 @@ def adaptivePavlov(logFile, playerID):
             if (count == 6):
                 break
             pass
-        print ("count: ",count)
         # Obtains the last line
         file.seek(0,0)
         try:
